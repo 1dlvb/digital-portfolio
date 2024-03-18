@@ -5,18 +5,18 @@ class User(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=65, unique=True)
     # password = models.CharField(widget=forms.PasswordInput())
-    email = models.EmailField(default=None)
-    imageURL = models.URLField(default=None)
+    email = models.EmailField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
     firstName = models.CharField(max_length=32, default=None)
     lastName = models.CharField(max_length=64, default=None)
-    education = models.TextField(default=None)
-    occupation = models.TextField(default=None)
-    socialNetworks = models.JSONField(default=["None"])  # JSON encoded list
-    address = models.TextField(default=None)
+    education = models.TextField(null=True, blank=True)
+    occupation = models.TextField(null=True, blank=True)
+    socialNetworks = models.JSONField(null=True, blank=True)  # JSON encoded list
+    address = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.id} {self.username} {self.email}" \
-               f"{self.imageURL} {self.firstName} {self.lastName}" \
+               f"{self.image} {self.firstName} {self.lastName}" \
                f"{self.education} {self.occupation} {self.socialNetworks}" \
                f"{self.address}"
 
