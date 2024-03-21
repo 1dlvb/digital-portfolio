@@ -1,12 +1,21 @@
 from django.db import models
 
+import uuid
+import os
+
+
+def random_name_file_path(filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('uploads/', filename)
+
 
 class User(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=65, unique=True)
     # password = models.CharField(widget=forms.PasswordInput())
     email = models.EmailField(null=True, blank=True)
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(upload_to=random_name_file_path, null=True, blank=True)
     firstName = models.CharField(max_length=32, default=None)
     lastName = models.CharField(max_length=64, default=None)
     education = models.TextField(null=True, blank=True)
