@@ -14,7 +14,7 @@ class User(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=65, unique=True)
     # password = models.CharField(widget=forms.PasswordInput())
-    email = models.EmailField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True, unique=True)
     image = models.ImageField(upload_to=random_name_file_path, null=True, blank=True)
     firstName = models.CharField(max_length=32, default=None)
     lastName = models.CharField(max_length=64, default=None)
