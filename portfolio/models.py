@@ -20,7 +20,7 @@ class User(models.Model):
     lastName = models.CharField(max_length=64, default=None)
     education = models.TextField(null=True, blank=True)
     occupation = models.TextField(null=True, blank=True)
-    socialNetworks = models.JSONField(null=True, blank=True)  # JSON encoded list
+    socialNetworks = models.JSONField(null=True, blank=True)
     address = models.TextField(null=True, blank=True)
 
     def __str__(self):
