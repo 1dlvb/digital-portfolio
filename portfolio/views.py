@@ -12,13 +12,14 @@ def get_all_portfolios(request):
     })
 
 
-def registration_new_user(request):
+def registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit='False')
+            #user.set_password(user.cleaned_data['password'])
             user.save()
-            return redirect('post_detail', pk=user.pk)
+            return redirect('portfolio/register_done.html', pk=user.pk)
     else:
         form = RegistrationForm()
     return render(request, 'portfolio/registration.html', {'form': form})

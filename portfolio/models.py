@@ -11,13 +11,13 @@ def random_name_file_path(filename):
 
 
 class User(models.Model):
-    id = models.AutoField(primary_key=True) #обязательное поле
-    username = models.CharField(max_length=65, unique=True) #обязательное поле
-    # password = models.CharField(widget=forms.PasswordInput())
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=65, unique=True)
+    #password = models.CharField(max_length=65)
     email = models.EmailField(null=True, blank=True, unique=True)
     image = models.ImageField(upload_to=random_name_file_path, null=True, blank=True)
-    firstName = models.CharField(max_length=32, default=None) #обязательное поле
-    lastName = models.CharField(max_length=64, default=None) #обязательное поле
+    firstName = models.CharField(max_length=32, default=None)
+    lastName = models.CharField(max_length=64, default=None)
     education = models.TextField(null=True, blank=True)
     occupation = models.TextField(null=True, blank=True)
     socialNetworks = models.JSONField(null=True, blank=True)  # JSON encoded list
