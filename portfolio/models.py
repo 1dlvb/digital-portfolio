@@ -4,7 +4,7 @@ import uuid
 import os
 
 
-def random_name_file_path(filename):
+def random_name_file_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)
     return os.path.join('uploads/', filename)
@@ -34,3 +34,11 @@ class Portfolio(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=32, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+
+
+class Achievement(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=32, default=None)
+    image = models.ImageField(upload_to=random_name_file_path, null=True, blank=True)
+    scan = models.FileField(upload_to=random_name_file_path, null=True, blank=True)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, default=None)
