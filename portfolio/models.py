@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
 
 import uuid
 import os
@@ -13,21 +14,23 @@ def random_name_file_path(instance, filename):
 class User(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=65, unique=True)
-    # password = models.CharField(widget=forms.PasswordInput())
+    password = models.CharField(max_length=128)
     email = models.EmailField(null=True, blank=True, unique=True)
     image = models.ImageField(upload_to=random_name_file_path, null=True, blank=True)
     firstName = models.CharField(max_length=32, default=None)
     lastName = models.CharField(max_length=64, default=None)
     education = models.TextField(null=True, blank=True)
     occupation = models.TextField(null=True, blank=True)
-    socialNetworks = models.JSONField(null=True, blank=True)  # JSON encoded list
+    socialNetworks = models.JSONField(null=True, blank=True)
     address = models.TextField(null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.password = make_password(self.password)
+        super(User, self).save(*args, **kwargs)
+
     def __str__(self):
-        return f"{self.id} {self.username} {self.email}" \
-               f"{self.image} {self.firstName} {self.lastName}" \
-               f"{self.education} {self.occupation} {self.socialNetworks}" \
-               f"{self.address}"
+        return self.username
 
 
 class Portfolio(models.Model):
@@ -35,6 +38,8 @@ class Portfolio(models.Model):
     title = models.CharField(max_length=32, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
+    def __str__(self):
+        return self.title
 
 class Achievement(models.Model):
     id = models.AutoField(primary_key=True)
