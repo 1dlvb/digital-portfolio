@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 
-from .models import Portfolio
+from .models import Portfolio, Achievement
 from .forms import RegistrationForm
-
 
 
 # Create your views here.
@@ -25,13 +24,13 @@ def get_rating(request):
     normalization_coefficient = 10
     for a in achievements:
         if current_portfolio is None:
-            portfolio_rating += a.level*normalization_coefficient
+            portfolio_rating += a.level * normalization_coefficient
             current_portfolio = a.portfolio
             continue
         if current_portfolio == a.portfolio:
-            portfolio_rating += a.level*normalization_coefficient
+            portfolio_rating += a.level * normalization_coefficient
         else:
-            portfolio_rating = a.level*normalization_coefficient
+            portfolio_rating = a.level * normalization_coefficient
         a.portfolio.rating = portfolio_rating
         a.portfolio.save()
         current_portfolio = a.portfolio
@@ -40,13 +39,14 @@ def get_rating(request):
         "portfolios": portfolios.order_by("-rating"),
     })
 
+
 def registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            return redirect('portfolio/register_done.html', pk=user.pk)
+            return render(request, 'portfolio/registration_done.html')
     else:
         form = RegistrationForm()
     return render(request, 'portfolio/registration.html', {'form': form})
