@@ -16,8 +16,7 @@ def registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit='False')
-            #user.set_password(user.cleaned_data['password']).
+            user = form.save(commit=False)
             user.save()
             return redirect('portfolio/register_done.html', pk=user.pk)
     else:
