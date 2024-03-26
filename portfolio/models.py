@@ -49,8 +49,6 @@ LEVEL_CHOICE = ((1, "Школьный"),
                 (4, "Всероссийский"),
                 (5, "Международный"))
 
-    def __str__(self):
-        return self.title
 
 class Achievement(models.Model):
     id = models.AutoField(primary_key=True)
