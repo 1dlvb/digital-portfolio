@@ -33,7 +33,7 @@ class User(models.Model):
 class Portfolio(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=32, default=None)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     rating = models.IntegerField(default=0)
 
     def __str__(self):
