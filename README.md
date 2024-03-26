@@ -1,1 +1,1 @@
-# Digital Portfolio Project for Ural Federal University Project Workshop
+# Digital Portfolio Project for the Ural Federal University Project Workshop
