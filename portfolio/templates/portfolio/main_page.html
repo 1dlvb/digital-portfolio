@@ -1,17 +1,23 @@
 <!DOCTYPE html>
+{% load static %}
+
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
     <title>MAIN PAGE</title>
 </head>
 <body>
-<h1>List of portfolios is here: </h1>
-{% for portfolio in portfolios %}
+<h1>List of achievements is here: </h1>
+{% for achievement in achievements %}
     <div class="">
-        <h1>portfolio title: {{ portfolio.title }}</h1>
-        <p>user's firstName  {{ portfolio.user.firstName }}</p>
-        <p>user's lastName  {{ portfolio.user.lastName }}</p>
-        <img src="{{portfolio.user.image.url}}">
+        <h1>achievement title: {{ achievement.title }}</h1>
+        <h1>portfolio title: {{ achievement.portfolio.title }}</h1>
+        <p>user's firstName  {{ achievement.portfolio.user.firstName }}</p>
+        <p>user's lastName  {{ achievement.portfolio.user.lastName }}</p>
+        <img src="{{achievement.portfolio.user.image.url}}">
+        <img src="{{achievement.image.url}}">
+        <a type="submit" href="achievement.scan"> download </a>
     </div>
 {% endfor %}
 </body>
