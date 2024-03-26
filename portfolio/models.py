@@ -36,7 +36,18 @@ class User(models.Model):
 class Portfolio(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=32, default=None)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    rating = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.title} {self.rating}"
+
+
+LEVEL_CHOICE = ((1, "Школьный"),
+                (2, "Муниципальный"),
+                (3, "Региональный"),
+                (4, "Всероссийский"),
+                (5, "Международный"))
 
     def __str__(self):
         return self.title
@@ -46,4 +57,8 @@ class Achievement(models.Model):
     title = models.CharField(max_length=32, default=None)
     image = models.ImageField(upload_to=random_name_file_path, null=True, blank=True)
     scan = models.FileField(upload_to=random_name_file_path, null=True, blank=True)
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, default=None)
+    level = models.IntegerField(choices=LEVEL_CHOICE)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
